@@ -178,6 +178,10 @@
   .contact h2 { margin-bottom: 14px; }
   .contact p { font-size: 19px; color: var(--muted); margin: 0 auto 30px; max-width: 520px; }
   .contact .btns { justify-content: center; }
+  .contact p.email { font-size: 16px; margin-top: -14px; }
+  .contact p.eyebrow { font-size: 13px; color: var(--accent); margin: 0 auto 14px; }
+  button.btn { font: inherit; font-weight: 500; font-size: 15px; cursor: pointer; }
+  .proj-head a.arrow:hover { background: var(--accent); color: #fff; }
 
   footer { padding: 36px 0 52px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -272,7 +276,7 @@
     <div class="projects">
       <article class="card reveal">
         <div class="proj-head"><h3>Hogwarts Artifacts</h3>
-          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <a class="arrow" href="https://github.com/Ahmad-Fahed/hogwarts-artifacts" target="_blank" rel="noopener" aria-label="Hogwarts Artifacts on GitHub" title="View on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         <p>A production-style backend REST API built with Spring Boot 3, from design to cloud deployment.</p>
         <ul class="points">
           <li>Layered architecture (controller, service, repository) with API-first CRUD endpoints</li>
@@ -289,7 +293,7 @@
 
       <article class="card reveal">
         <div class="proj-head"><h3>Equipify</h3>
-          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <a class="arrow" href="https://github.com/Ahmad-Fahed/Equipify" target="_blank" rel="noopener" aria-label="Equipify on GitHub" title="View on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         <p>A tool-rental platform that connects tool owners with renters.</p>
         <ul class="points">
           <li>Search by tool type, location and availability</li>
@@ -376,9 +380,12 @@
       <p class="eyebrow mono" style="justify-content:center">04 / contact</p>
       <h2>Let's <span class="grad">work together</span>.</h2>
       <p>Hiring a junior software developer? I'd like to hear from you.</p>
+      <p class="email mono"><a href="mailto:ahmaddfahed@gmail.com">ahmaddfahed@gmail.com</a></p>
       <div class="btns">
         <a class="btn primary" href="mailto:ahmaddfahed@gmail.com">Email me
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+        <button class="btn" type="button" id="copy-email" data-email="ahmaddfahed@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy email</span></button>
         <a class="btn" href="https://www.linkedin.com/in/ahmad-fahed" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/Ahmad-Fahed" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -401,6 +408,15 @@
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
     syncLabel();
+  });
+
+  // Copy email: works even when the visitor has no mail app set up for mailto links
+  var copyBtn = document.getElementById('copy-email'), copyLabel = copyBtn.querySelector('span');
+  copyBtn.addEventListener('click', function () {
+    var email = copyBtn.dataset.email;
+    function done(ok) { copyLabel.textContent = ok ? 'Copied!' : email; setTimeout(function () { copyLabel.textContent = 'Copy email'; }, 2000); }
+    if (navigator.clipboard) navigator.clipboard.writeText(email).then(function () { done(true); }, function () { done(false); });
+    else done(false);
   });
 
   // Nav border once scrolled
